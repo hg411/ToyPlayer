@@ -12,8 +12,8 @@
     <Filter Include="소스 파일\Utils">
       <UniqueIdentifier>{c17c0117-0b2a-4f57-99a4-053bacb637e8}</UniqueIdentifier>
     </Filter>
-    <Filter Include="소스 파일\ToyPlayer">
-      <UniqueIdentifier>{654ce87f-6ce8-4131-8e40-8aa34639ef57}</UniqueIdentifier>
+    <Filter Include="소스 파일\Shadertoy">
+      <UniqueIdentifier>{261b16f6-4a1c-4489-b75a-70f3a11be9da}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -32,8 +32,8 @@
     <ClInclude Include="pch.h">
       <Filter>소스 파일\Utils</Filter>
     </ClInclude>
-    <ClInclude Include="ToyPlayer.h">
-      <Filter>소스 파일\ToyPlayer</Filter>
+    <ClInclude Include="Shadertoy.h">
+      <Filter>소스 파일\Shadertoy</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -56,8 +56,8 @@
     <ClCompile Include="pch.cpp">
       <Filter>소스 파일\Utils</Filter>
     </ClCompile>
-    <ClCompile Include="ToyPlayer.cpp">
-      <Filter>소스 파일\ToyPlayer</Filter>
+    <ClCompile Include="Shadertoy.cpp">
+      <Filter>소스 파일\Shadertoy</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

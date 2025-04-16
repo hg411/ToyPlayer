@@ -4,7 +4,7 @@
 #include "pch.h"
 #include "framework.h"
 #include "Client.h"
-#include "ToyPlayer.h"
+#include "Shadertoy.h"
 
 #define MAX_LOADSTRING 100
 
@@ -14,7 +14,7 @@ WCHAR szTitle[MAX_LOADSTRING];                  // 제목 표시줄 텍스트입
 WCHAR szWindowClass[MAX_LOADSTRING];            // 기본 창 클래스 이름입니다.
 
 WindowInfo GWindowInfo;
-unique_ptr<ToyPlayer> toyPlayer = make_unique<ToyPlayer>();
+unique_ptr<Shadertoy> shadertoy = make_unique<Shadertoy>();
 
 // 이 코드 모듈에 포함된 함수의 선언을 전달합니다:
 ATOM                MyRegisterClass(HINSTANCE hInstance);
@@ -47,11 +47,11 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
     MSG msg;
 
-    GWindowInfo.width = 1600;
-    GWindowInfo.height = 900;
+    GWindowInfo.width = 2560;
+    GWindowInfo.height = 1440;
     GWindowInfo.windowed = true;
 
-    toyPlayer->Init(GWindowInfo);
+    shadertoy->Init(GWindowInfo);
 
     // 기본 메시지 루프입니다:
     while (true)
@@ -69,7 +69,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
         }
 
         // TODO
-        toyPlayer->Update();
+        shadertoy->Update();
     }
 
     return (int)msg.wParam;

@@ -145,13 +145,11 @@ struct WindowInfo {
 struct Vertex {
     Vertex() {}
 
-    Vertex(Vec3 p, Vec2 u = Vec2(0.0f), Vec3 n = Vec3(0.0f), Vec3 t = Vec3(0.0f))
-        : position(p), uv(u), normal(n), tangent(t) {}
+    Vertex(Vec3 p, Vec2 u = Vec2(0.0f))
+        : position(p), uv(u) {}
 
     Vec3 position = Vec3(0.0f);
     Vec2 uv = Vec2(0.0f);
-    Vec3 normal = Vec3(0.0f);
-    Vec3 tangent = Vec3(0.0f);
 };
 
 #define DECLARE_SINGLE(type)                                                                       \

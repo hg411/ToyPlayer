@@ -1,5 +1,5 @@
 #pragma once
-class ToyPlayer
+class Shadertoy
 {
 public:
 	void Init(const WindowInfo& windowInfo);
