@@ -26,9 +26,12 @@ void Engine::Init(const WindowInfo &windowInfo) {
     _toyPlayer = make_shared<ToyPlayer>();
     _toyPlayer->Init(_device, L"SupernovaPS.hlsl", static_cast<float>(_windowInfo.width),
                      static_cast<float>(_windowInfo.height));
-    shared_ptr<Texture> texture = make_shared<Texture>();
-    texture->Load(L"../Resources/Texture/rgba-noise-medium.png", false);
-    _toyPlayer->SetChannel(0, texture->GetSRV());
+    shared_ptr<Texture> texture1 = make_shared<Texture>();
+    texture1->Load(L"../Resources/Texture/rgba-medium-noise.png", false);
+    _toyPlayer->SetChannel(0, texture1->GetSRV());
+    shared_ptr<Texture> texture2 = make_shared<Texture>();
+    texture2->Load(L"../Resources/Texture/gray-small-noise.png", true);
+    _toyPlayer->SetChannel(1, texture2->GetSRV());
 }
 
 void Engine::Update() {
@@ -42,18 +45,18 @@ void Engine::Update() {
 
 void Engine::Render() {
     float clearColor[4] = {0.0f, 0.0f, 0.0f, 1.0f};
-    //CONTEXT->ClearRenderTargetView(_floatRTV.Get(), clearColor);
+    //_context->ClearRenderTargetView(_floatRTV.Get(), clearColor);
 
-    //CONTEXT->OMSetRenderTargets(1, _floatRTV.GetAddressOf(), nullptr);
+    //_context->OMSetRenderTargets(1, _floatRTV.GetAddressOf(), nullptr);
 
-    CONTEXT->ClearRenderTargetView(_backBufferRTV.Get(), clearColor);
+    _context->ClearRenderTargetView(_backBufferRTV.Get(), clearColor);
+    _context->OMSetRenderTargets(1, _backBufferRTV.GetAddressOf(), nullptr);
+    _context->RSSetState(_rasterizerState.Get());
 
-    CONTEXT->OMSetRenderTargets(1, _backBufferRTV.GetAddressOf(), nullptr);
-
-    CONTEXT->RSSetState(_rasterizerState.Get());
     _toyPlayer->Render();
 
     _imgui->Render();
+
     _swapChain->Present(1, 0);
 }
 
@@ -102,7 +105,7 @@ void Engine::CreateDeviceAndSwapChain() {
     ZeroMemory(&sd, sizeof(sd));
     sd.BufferDesc.Width = _windowInfo.width;           // set the back buffer width
     sd.BufferDesc.Height = _windowInfo.height;         // set the back buffer height
-    sd.BufferDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM; // use 32-bit color
+    sd.BufferDesc.Format = DXGI_FORMAT_R16G16B16A16_FLOAT; // use 64-bit color
     sd.BufferCount = 2;                                // Double-buffering
     sd.BufferDesc.RefreshRate.Numerator = 60;
     sd.BufferDesc.RefreshRate.Denominator = 1;
@@ -161,12 +164,12 @@ void Engine::CreateRTV() {
         desc.SampleDesc.Count = 1; // MSAA 사용하지 않음.
         desc.SampleDesc.Quality = 0;
 
-        if (FAILED(_device->CreateTexture2D(&desc, NULL, _floatBuffer.GetAddressOf()))) {
-            cout << "Failed()" << endl;
-        }
+        //if (FAILED(_device->CreateTexture2D(&desc, NULL, _floatBuffer.GetAddressOf()))) {
+        //    cout << "Failed()" << endl;
+        //}
 
-        _device->CreateShaderResourceView(_floatBuffer.Get(), NULL, _floatSRV.GetAddressOf());
-        _device->CreateRenderTargetView(_floatBuffer.Get(), NULL, _floatRTV.GetAddressOf());
+        //_device->CreateShaderResourceView(_floatBuffer.Get(), NULL, _floatSRV.GetAddressOf()); // 삭제
+        //_device->CreateRenderTargetView(_floatBuffer.Get(), NULL, _floatRTV.GetAddressOf());
 
     } else {
         std::cout << "CreateRTV() failed." << std::endl;

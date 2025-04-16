@@ -47,8 +47,8 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
     MSG msg;
 
-    GWindowInfo.width = 2560;
-    GWindowInfo.height = 1440;
+    GWindowInfo.width = 1600;
+    GWindowInfo.height = 900;
     GWindowInfo.windowed = true;
 
     shadertoy->Init(GWindowInfo);

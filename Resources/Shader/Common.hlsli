@@ -2,7 +2,7 @@
 #define __COMMON_HLSLI__
 
 SamplerState g_pointWrapSampler : register(s0);
-SamplerComparisonState g_pointClampSampler : register(s1);
+SamplerState g_pointClampSampler : register(s1);
 SamplerState g_linearWrapSampler : register(s2);
 SamplerState g_linearClampSampler : register(s3);
 

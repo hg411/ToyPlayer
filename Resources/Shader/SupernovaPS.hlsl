@@ -1,8 +1,5 @@
 #include "Common.hlsli"
 
-Texture2D g_texture0 : register(t0);
-SamplerState g_sampler : register(s0);
-
 #define pi 3.14159265
 
 // iq's noise
@@ -12,7 +9,7 @@ float noise(in float3 x)
     float3 f = frac(x);
     f = f * f * (3.0 - 2.0 * f);
     float2 uv = (p.xy + float2(37.0, 17.0) * p.z) + f.xy;
-    float2 rg = g_texture0.SampleLevel(g_sampler, (uv + 0.5) / 256.0, 0.0).yx;
+    float2 rg = iChannel0.SampleLevel(g_linearWrapSampler, (uv + 0.5) / 256.0, 0.0).yx;
     return 1.0 - 0.82 * lerp(rg.x, rg.y, f.z);
 }
 
@@ -215,7 +212,7 @@ float4 main(PS_IN input) : SV_Target
             float2 uv = fragCoord.xy / iResolution.xy;
             uv.y*=120.0;
             uv.x*=280.0;
-            d = abs(d) * (0.8 + 0.08 * g_texture0.SampleLevel(g_sampler,float2(uv.y,-uv.x+0.5*sin(4.*iTime+uv.y*4.0)), 0.0).r);
+            d = abs(d) * (0.8 + 0.08 * iChannel1.SampleLevel(g_linearWrapSampler, float2(uv.y, -uv.x + 0.5 * sin(4. * iTime + uv.y * 4.0)), 0.0).r);
 
             // trying to optimize step size near the camera and near the light source
             t += max(d * 0.1 * max(min(length(ldst), length(ro)), 1.0), 0.01);
@@ -235,13 +232,13 @@ float4 main(PS_IN input) : SV_Target
     {
         float freq = 500.0;
         float3 stars = float3(noise(rd * freq) * 0.5 + 0.5, noise(rd * freq) * 0.5 + 0.5, noise(rd * freq) * 0.5 + 0.5);
-        float3 starbg = float3(0, 0, 0);
+        float3 starbg = float3(0.0, 0.0, 0.0);
         starbg = lerp(starbg, float3(0.8,0.9,1.0), smoothstep(0.99, 1.0, stars)*clamp(dot(float3(0, 0, 0),rd)+0.75,0.0,1.0));
         starbg = clamp(starbg, 0.0, 1.0);
         sum.xyz += starbg; 
     }
 
     
-    //return float4(sum.xyz, 1.0);
-    return float4(ToneMapFilmicALU(sum.xyz*2.2), 1.0); // Åæ ¸ÅÇÎ
+    return float4(sum.xyz, 1.0);
+    //return float4(ToneMapFilmicALU(sum.xyz*2.2), 1.0); // Åæ ¸ÅÇÎ
 }
