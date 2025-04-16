@@ -11,7 +11,7 @@ class Engine {
     void ResizeWindow(int32 widht, int32 height);
 
   private:
-    void AdjustWindowSize();
+    void AdjustWindowSize(); // 123
     void CreateDeviceAndSwapChain();
 
   public:
