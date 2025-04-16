@@ -60,41 +60,8 @@ void ToyPlayer::CreateMesh(ComPtr<ID3D11Device> device) {
 
     vector<uint32> indices = {0, 1, 2, 2, 1, 3};
 
-    CreateVertexBuffer(device, vertices);
-    CreateIndexBuffer(device, indices);
-}
-
-void ToyPlayer::CreateVertexBuffer(ComPtr<ID3D11Device> device, const vector<Vertex> &vertices) {
-    D3D11_BUFFER_DESC bufferDesc;
-    ZeroMemory(&bufferDesc, sizeof(bufferDesc));
-    bufferDesc.Usage = D3D11_USAGE_IMMUTABLE; // 초기화 후 변경X
-    bufferDesc.ByteWidth = UINT(sizeof(Vertex) * vertices.size());
-    bufferDesc.BindFlags = D3D11_BIND_VERTEX_BUFFER;
-    bufferDesc.CPUAccessFlags = 0; // 0 if no CPU access is necessary.
-    bufferDesc.StructureByteStride = sizeof(Vertex);
-
-    D3D11_SUBRESOURCE_DATA vertexBufferData = {0}; // MS 예제에서 초기화하는 방식
-    vertexBufferData.pSysMem = vertices.data();
-    vertexBufferData.SysMemPitch = 0;
-    vertexBufferData.SysMemSlicePitch = 0;
-
-    device->CreateBuffer(&bufferDesc, &vertexBufferData, _vertexBuffer.GetAddressOf());
-}
-
-void ToyPlayer::CreateIndexBuffer(ComPtr<ID3D11Device> device, const vector<uint32> &indices) {
-    D3D11_BUFFER_DESC bufferDesc = {};
-    bufferDesc.Usage = D3D11_USAGE_IMMUTABLE; // 초기화 후 변경X
-    bufferDesc.ByteWidth = UINT(sizeof(uint32) * indices.size());
-    bufferDesc.BindFlags = D3D11_BIND_INDEX_BUFFER;
-    bufferDesc.CPUAccessFlags = 0; // 0 if no CPU access is necessary.
-    bufferDesc.StructureByteStride = sizeof(uint32);
-
-    D3D11_SUBRESOURCE_DATA indexBufferData = {0};
-    indexBufferData.pSysMem = indices.data();
-    indexBufferData.SysMemPitch = 0;
-    indexBufferData.SysMemSlicePitch = 0;
-
-    device->CreateBuffer(&bufferDesc, &indexBufferData, _indexBuffer.GetAddressOf());
+    D3D11Utils::CreateVertexBuffer(device, vertices, _vertexBuffer);
+    D3D11Utils::CreateIndexBuffer(device, indices, _indexBuffer);
 }
 
 void ToyPlayer::InitShader(ComPtr<ID3D11Device> device, const wstring &pixelShaderName) {

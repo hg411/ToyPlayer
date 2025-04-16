@@ -18,6 +18,12 @@ class D3D11Utils {
     static void CreatePixelShader(ComPtr<ID3D11Device> &device, const wstring &filename,
                                   ComPtr<ID3D11PixelShader> &pixelShader);
 
+    static void CreateVertexBuffer(ComPtr<ID3D11Device> device, const vector<Vertex> &vertices,
+                                   ComPtr<ID3D11Buffer> &vertexBuffer);
+
+    static void CreateIndexBuffer(ComPtr<ID3D11Device> device, const vector<uint32> &indices,
+                                  ComPtr<ID3D11Buffer> &indexBuffer);
+
   private:
     static const wstring _shaderPath;
 };

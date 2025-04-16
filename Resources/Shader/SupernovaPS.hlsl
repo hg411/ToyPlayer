@@ -239,6 +239,6 @@ float4 main(PS_IN input) : SV_Target
     }
 
     
-    return float4(sum.xyz, 1.0);
-    //return float4(ToneMapFilmicALU(sum.xyz*2.2), 1.0); // Åæ ¸ÅÇÎ
+    //return float4(sum.xyz, 1.0);
+    return float4(ToneMapFilmicALU(sum.xyz*2.2), 1.0); // Åæ ¸ÅÇÎ
 }

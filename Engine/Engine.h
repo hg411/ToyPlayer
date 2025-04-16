@@ -37,10 +37,6 @@ class Engine {
 
     ComPtr<ID3D11RenderTargetView> _backBufferRTV;
 
-    //ComPtr<ID3D11Texture2D> _floatBuffer; // ªË¡¶
-    //ComPtr<ID3D11RenderTargetView> _floatRTV;
-    //ComPtr<ID3D11ShaderResourceView> _floatSRV;
-
     ComPtr<ID3D11RasterizerState> _rasterizerState;
 
     shared_ptr<Imgui> _imgui;

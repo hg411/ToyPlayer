@@ -105,7 +105,7 @@ void Engine::CreateDeviceAndSwapChain() {
     ZeroMemory(&sd, sizeof(sd));
     sd.BufferDesc.Width = _windowInfo.width;           // set the back buffer width
     sd.BufferDesc.Height = _windowInfo.height;         // set the back buffer height
-    sd.BufferDesc.Format = DXGI_FORMAT_R16G16B16A16_FLOAT; // use 64-bit color
+    sd.BufferDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM; // use 64-bit color
     sd.BufferCount = 2;                                // Double-buffering
     sd.BufferDesc.RefreshRate.Numerator = 60;
     sd.BufferDesc.RefreshRate.Denominator = 1;
@@ -152,25 +152,6 @@ void Engine::CreateRTV() {
 
     if (backBuffer) {
         _device->CreateRenderTargetView(backBuffer.Get(), nullptr, _backBufferRTV.GetAddressOf());
-
-        D3D11_TEXTURE2D_DESC desc;
-        backBuffer->GetDesc(&desc);
-        desc.MipLevels = desc.ArraySize = 1;
-        desc.BindFlags = D3D11_BIND_RENDER_TARGET | D3D11_BIND_SHADER_RESOURCE;
-        desc.Format = DXGI_FORMAT_R16G16B16A16_FLOAT;
-        desc.Usage = D3D11_USAGE_DEFAULT; // 스테이징 텍스춰로부터 복사 가능
-        desc.MiscFlags = 0;
-        desc.CPUAccessFlags = 0;
-        desc.SampleDesc.Count = 1; // MSAA 사용하지 않음.
-        desc.SampleDesc.Quality = 0;
-
-        //if (FAILED(_device->CreateTexture2D(&desc, NULL, _floatBuffer.GetAddressOf()))) {
-        //    cout << "Failed()" << endl;
-        //}
-
-        //_device->CreateShaderResourceView(_floatBuffer.Get(), NULL, _floatSRV.GetAddressOf()); // 삭제
-        //_device->CreateRenderTargetView(_floatBuffer.Get(), NULL, _floatRTV.GetAddressOf());
-
     } else {
         std::cout << "CreateRTV() failed." << std::endl;
     }

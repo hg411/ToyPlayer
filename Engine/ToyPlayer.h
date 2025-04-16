@@ -22,8 +22,6 @@ class ToyPlayer {
 
   private:
     void CreateMesh(ComPtr<ID3D11Device> device);
-    void CreateVertexBuffer(ComPtr<ID3D11Device> device, const vector<Vertex> &vertices);
-    void CreateIndexBuffer(ComPtr<ID3D11Device> device, const vector<uint32> &indices);
     void InitShader(ComPtr<ID3D11Device> device, const wstring &pixelShaderName);
 
   private:
