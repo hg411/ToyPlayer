@@ -238,7 +238,12 @@ float4 main(PS_IN input) : SV_Target
         sum.xyz += starbg; 
     }
 
-    
-    //return float4(sum.xyz, 1.0);
-    return float4(ToneMapFilmicALU(sum.xyz*2.2), 1.0); // Åæ ¸ÅÇÎ
+    if (useToneMapping)
+    {
+        return float4(ToneMapFilmicALU(sum.xyz * 2.2), 1.0);
+    }
+    else
+    {
+        return float4(sum.xyz, 1.0);
+    }
 }

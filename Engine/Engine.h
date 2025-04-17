@@ -24,6 +24,7 @@ class Engine {
     ComPtr<ID3D11Device> GetDevice() { return _device; }
     ComPtr<ID3D11DeviceContext> GetContext() { return _context; }
     ComPtr<IDXGISwapChain> GetSwapChain() { return _swapChain; }
+    shared_ptr<ToyPlayer> GetToyPlayer() { return _toyPlayer; }
 
   private:
     WindowInfo _windowInfo;

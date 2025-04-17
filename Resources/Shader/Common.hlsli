@@ -18,7 +18,8 @@ cbuffer ShadertoyParams : register(b0)
     float threshold;
     float strength;
     float iTime;
-    float padding[3];
+    int useToneMapping;
+    float padding[2];
 };
 
 struct PS_IN

@@ -17,6 +17,7 @@ void ToyPlayer::Init(ComPtr<ID3D11Device> device, const wstring &pixelShaderName
 
     _shadertoyParams.dx = 1.0f / width;
     _shadertoyParams.dy = 1.0f / height;
+    _shadertoyParams.useToneMapping = true;
 }
 
 void ToyPlayer::Update() {

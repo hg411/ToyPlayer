@@ -8,17 +8,24 @@ struct ShadertoyParams {
     float threshold;
     float strength;
     float iTime;
-    float padding[3];
+    int useToneMapping;
+    float padding[2];
 };
 
 class ToyPlayer {
   public:
-    void Init(ComPtr<ID3D11Device> device, const wstring &pixelShaderName, const float width, const float height);
+    void Init(ComPtr<ID3D11Device> device, const wstring &pixelShaderName, const float width,
+              const float height);
 
     void Update();
     void Render();
 
     void SetChannel(int index, ComPtr<ID3D11ShaderResourceView> srv);
+
+  public:
+    // IMGUI
+    int GetUseToneMapping() { return _shadertoyParams.useToneMapping; }
+    void SetUseToneMapping(int flag) { _shadertoyParams.useToneMapping = flag; }
 
   private:
     void CreateMesh(ComPtr<ID3D11Device> device);
